@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<robot name="robot_urdf" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="default_color" value="0.79216 0.81961 0.93333 1"/>
+
+  <!-- Macro for wheel link -->
+  <xacro:macro name="wheel_link" params="name mesh origin mass ixx ixy ixz iyy iyz izz">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="${origin}" rpy="0 0 0"/>
+        <mass value="${mass}"/>
+        <inertia ixx="${ixx}" ixy="${ixy}" ixz="${ixz}"
+                 iyy="${iyy}" iyz="${iyz}" izz="${izz}"/>
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://wall-e/meshes/${mesh}"/>
+        </geometry>
+        <material name="">
+          <color rgba="${default_color}"/>
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <mesh filename="package://wall-e/meshes/${mesh}"/>
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="1.7528E-07 4.3368E-18 -3.1564E-07" rpy="0 0 0"/>
+      <mass value="0.45937"/>
+      <inertia ixx="0.00043611" ixy="-4.0945E-20" ixz="-2.1354E-20"
+               iyy="0.00088919" iyz="1.6285E-22" izz="0.0012573"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wall-e/meshes/base_link.STL"/>
+      </geometry>
+      <material name="">
+        <color rgba="${default_color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://wall-e/meshes/base_link.STL"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Wheel Links -->
+  <xacro:wheel_link name="lf_link" mesh="lf_link.STL"
+                    origin="-1.1319E-06 0.00085532 2.8562E-06"
+                    mass="0.033011"
+                    ixx="6.6258E-06" ixy="3.0204E-10" ixz="-5.6054E-12"
+                    iyy="1.1308E-05" iyz="-7.6739E-10" izz="6.6258E-06"/>
+  <xacro:wheel_link name="lb_link" mesh="lb_link.STL"
+                    origin="2.51E-06 0.00085532 1.7718E-06"
+                    mass="0.033011"
+                    ixx="6.6258E-06" ixy="-6.7485E-10" ixz="7.8844E-12"
+                    iyy="1.1308E-05" iyz="-4.7403E-10" izz="6.6258E-06"/>
+  <xacro:wheel_link name="rf_link" mesh="rf_link.STL"
+                    origin="-1.8104E-06 -0.00085532 2.4825E-06"
+                    mass="0.033011"
+                    ixx="6.6258E-06" ixy="-4.8757E-10" ixz="-8.202E-12"
+                    iyy="1.1308E-05" iyz="6.6517E-10" izz="6.6258E-06"/>
+  <xacro:wheel_link name="rb_link" mesh="rb_link.STL"
+                    origin="-2.7058E-06 -0.00085532 -1.4556E-06"
+                    mass="0.033011"
+                    ixx="6.6258E-06" ixy="-7.2536E-10" ixz="7.3893E-12"
+                    iyy="1.1308E-05" iyz="-3.9246E-10" izz="6.6258E-06"/>
+
+  <!-- Joints -->
+  <joint name="lf_joint" type="continuous">
+    <origin xyz="0.035 0.06 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="lf_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="lb_joint" type="continuous">
+    <origin xyz="-0.035 0.06 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="lb_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="rf_joint" type="continuous">
+    <origin xyz="0.035 -0.06 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rf_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="rb_joint" type="continuous">
+    <origin xyz="-0.035 -0.06 0" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rb_link"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <plugin filename="diff_drive_controller" name="gz::sim::systems::DiffDrive">
+    <left_joint>lf_joint</left_joint>
+    <right_joint>rf_joint</right_joint>
+
+    <wheel_separation>0.12</wheel_separation>
+    <wheel_radius>0.1</wheel_radius>
+
+    <max_linear_acceleration>0.5</max_linear_acceleration>
+
+    <topic>cmd_vel</topic>
+    <odom_topic>odom</odom_topic>
+    <frame_id>odom</frame_id>
+    <child_frame_id>base_link</child_frame_id>
+    <odom_publisher_frequency>30</odom_publisher_frequency>
+    <tf_topic>/tf</tf_topic>
+  </plugin>
+
+</robot>
+

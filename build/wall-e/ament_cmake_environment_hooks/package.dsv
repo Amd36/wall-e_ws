@@ -1,0 +1,4 @@
+source;share/wall-e/local_setup.bash
+source;share/wall-e/local_setup.dsv
+source;share/wall-e/local_setup.sh
+source;share/wall-e/local_setup.zsh

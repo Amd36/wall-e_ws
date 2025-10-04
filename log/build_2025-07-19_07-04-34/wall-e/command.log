@@ -1,0 +1,4 @@
+Invoking command in '/home/junayed/Documents/wall-e_ws/build/wall-e': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/junayed/Documents/wall-e_ws/build/wall-e -- -j12 -l12
+Invoked command in '/home/junayed/Documents/wall-e_ws/build/wall-e' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --build /home/junayed/Documents/wall-e_ws/build/wall-e -- -j12 -l12
+Invoking command in '/home/junayed/Documents/wall-e_ws/build/wall-e': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/junayed/Documents/wall-e_ws/build/wall-e
+Invoked command in '/home/junayed/Documents/wall-e_ws/build/wall-e' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/humble /usr/bin/cmake --install /home/junayed/Documents/wall-e_ws/build/wall-e
