@@ -1,2 +1,0 @@
-Invoking command in '/home/junayed/Documents/wall-e_ws/build/wall-e': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/junayed/Documents/wall-e_ws/build/wall-e -- -j12 -l12
-Invoked command in '/home/junayed/Documents/wall-e_ws/build/wall-e' returned '2': CMAKE_PREFIX_PATH=/opt/ros/humble /usr/bin/cmake --build /home/junayed/Documents/wall-e_ws/build/wall-e -- -j12 -l12
